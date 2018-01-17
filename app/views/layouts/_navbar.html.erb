@@ -1,0 +1,16 @@
+<table>
+  <tr>
+    <td><%= link_to "ホーム", root_path %></td>
+    <% if user_signed_in? %>
+      <td>|</td>
+      <td><%= link_to "マイページ", edit_user_registration_path %></td>
+      <td>|</td>
+      <td><%= link_to "ログアウト", destroy_user_session_path, method: :DELETE %></td>
+    <% else %>
+      <td>|</td>
+      <td><%= link_to "サインアップ", new_user_registration_path %></td>
+      <td>|</td>
+      <td><%= link_to "サインイン", new_user_session_path %></td>
+    <% end %>
+  </tr>
+</table>
