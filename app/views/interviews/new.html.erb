@@ -1,0 +1,6 @@
+<h1>新しい面接の作成</h1>
+
+<%= form_for(@interview) do |f| %>
+  <%= f.datetime_select :date %>
+  <%= f.submit %>
+<% end %>

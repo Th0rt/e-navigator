@@ -3,7 +3,11 @@
     <td><%= link_to "ホーム", root_path %></td>
     <% if user_signed_in? %>
       <td>|</td>
-      <td><%= link_to "マイページ", edit_user_registration_path %></td>
+      <td><%= link_to "プロフィール", edit_user_registration_path %></td>
+      <td>|</td>
+      <td><%= link_to "ユーザー一覧", users_path %></td>
+      <td>|</td>
+      <td><%= link_to "面接一覧", interviews_path %></td>
       <td>|</td>
       <td><%= link_to "ログアウト", destroy_user_session_path, method: :DELETE %></td>
     <% else %>
