@@ -1,8 +1,8 @@
 class InterviewsController < ApplicationController
 
   def index
-    @user = current_user
-    @interviews = current_user.interviews.all
+    @user = User.find(params[:id])
+    @interviews = @user.interviews.all
   end
 
   def show
