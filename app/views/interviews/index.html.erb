@@ -9,7 +9,7 @@
     <tr>
       <td><%= interview.date.strftime("%Y/%m/%d %H:%M") %></td>
       <td><%= interview.status %></td>
-      <% if current_user.role == "guest" %>
+      <% if current_user.role == "ゲスト" %>
         <td><%= link_to "編集", edit_interview_path(interview) %></td>
         <td><%= link_to "削除", interview, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %></td>
       <% else %>

@@ -18,7 +18,7 @@ class InterviewsController < ApplicationController
   def create
     @interview = current_user.interviews.build(interview_params)
     @interview.save
-    redirect_to interviews_path
+    redirect_to interviews_path(params: { id: @interview.user_id } )
   end
 
   def edit
@@ -34,7 +34,7 @@ class InterviewsController < ApplicationController
   def destroy
     @interview = Interview.find(params[:id])
     @interview.destroy
-    redirect_to interviews_url
+    redirect_to interviews_url(params: { id: @interview.user_id } )
   end
 end
 
