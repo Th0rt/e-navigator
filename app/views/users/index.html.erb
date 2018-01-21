@@ -2,6 +2,7 @@
 
 <table>
   <thead>
+    <th>ロール</th>
     <th>ユーザー名</th>
     <th>Email</th>
     <th>性別</th>
@@ -9,6 +10,7 @@
   </thead>
   <% @users.each do | user | %>
     <tr>
+      <td><%= user.role %></td>
       <td><%= user.user_name %></td>
       <td><%= user.email %></td>
       <td><%= user.sex %></td>

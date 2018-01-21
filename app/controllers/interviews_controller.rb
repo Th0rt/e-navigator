@@ -28,7 +28,7 @@ class InterviewsController < ApplicationController
   def update
     @interview = Interview.find(params[:id])
     @interview.update(interview_params)
-    redirect_to interviews_url
+    redirect_to interviews_url(params: { id: @interview.user_id } )
   end
 
   def destroy
@@ -41,5 +41,5 @@ end
 private
 
 def interview_params
-  params.require(:interview).permit(:date)
+  params.require(:interview).permit(:date, :status)
 end
