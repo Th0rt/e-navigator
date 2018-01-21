@@ -1,21 +1,21 @@
-<h1>ユーザー一覧</h1>
+<h1>ゲスト一覧</h1>
 
 <table>
   <thead>
-    <th>ロール</th>
     <th>ユーザー名</th>
     <th>Email</th>
     <th>性別</th>
     <th>学校名</th>
   </thead>
   <% @users.each do | user | %>
-    <tr>
-      <td><%= user.role %></td>
-      <td><%= user.user_name %></td>
-      <td><%= user.email %></td>
-      <td><%= user.sex %></td>
-      <td><%= user.school_name %></td>
-      <td><%= link_to "面接一覧", interviews_path( params: { id: user.id } ) %></td>
-    </tr>
+    <% if user.role == "ゲスト" %>
+      <tr>
+        <td><%= user.user_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.sex %></td>
+        <td><%= user.school_name %></td>
+        <td><%= link_to "面接一覧", interviews_path( params: { id: user.id } ) %></td>
+      </tr>
+    <% end %>
   <% end %>
 </table>
