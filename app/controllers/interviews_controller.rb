@@ -1,4 +1,5 @@
 class InterviewsController < ApplicationController
+  before_action :set_currentuser
 
   def index
     @user = User.find (params[:id])
@@ -6,17 +7,14 @@ class InterviewsController < ApplicationController
   end
 
   def show
-    @user = current_user
-    @interviews = current_user.interviews.all
+    @interviews = @user.interviews.all
   end
 
   def new
-    @user = current_user
-    @interview = current_user.interviews.build
+    @interview = @user.interviews.build
   end
 
   def create
-    @user = current_user
     @interview = @user.interviews.build(interview_params)
     @interview.save
     NoticeMailer.sendmail_confirm(@user).deliver
