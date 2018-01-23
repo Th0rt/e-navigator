@@ -5,8 +5,9 @@ class NoticeMailer < ApplicationMailer
   #
   #   en.notice_mailer.sendmail_confirm.subject
   #
-  def sendmail_confirm(user)
+  def sendmail_confirm(user,url)
     @user = user
+    @url = url
     @greeting = "Hi"
 
     mail(

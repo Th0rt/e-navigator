@@ -16,9 +16,10 @@ class InterviewsController < ApplicationController
 
   def create
     @interview = @user.interviews.build(interview_params)
+    @url = interviews_url(params: { id: @user.id })
     if @interview.save
-      NoticeMailer.sendmail_confirm(@user).deliver
-      redirect_to interviews_path(params: { id: @interview.user_id } )
+      NoticeMailer.sendmail_confirm(@user, @url).deliver
+      redirect_to interviews_path(params: { id: @interview.user_id })
     else
       render :new
     end
@@ -30,9 +31,10 @@ class InterviewsController < ApplicationController
 
   def update
     @interview = Interview.find(params[:id])
+    @url = interviews_url(params: { id: @user.id })
     if @interview.update(interview_params)
-      NoticeMailer.sendmail_confirm(@interview.user).deliver
-      redirect_to interviews_url(params: { id: @interview.user_id } )
+      NoticeMailer.sendmail_confirm(@interview.user, @url).deliver
+      redirect_to interviews_url(params: { id: @interview.user_id })
     else
       render :edit
     end
@@ -40,8 +42,9 @@ class InterviewsController < ApplicationController
 
   def destroy
     @interview = Interview.find(params[:id])
+    @url = interviews_url(params: { id: @user.id })
     @interview.destroy
-    NoticeMailer.sendmail_confirm(@interview.user).deliver
+    NoticeMailer.sendmail_confirm(@interview.user, @url).deliver
     redirect_to interviews_url(params: { id: @interview.user_id } )
   end
 end
