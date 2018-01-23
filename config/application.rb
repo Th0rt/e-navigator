@@ -27,5 +27,8 @@ module ENavigator
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Timezon
+    config.time_zone = 'Tokyo'
   end
 end
