@@ -13,7 +13,7 @@
       <tr>
         <td><%= user.user_name %></td>
         <td><%= user.email %></td>
-        <td><%= (Date.today.strftime("%Y%m%d").to_i - user.birthday.strftime("%Y%m%d").to_i) / 10000 %></td>
+        <td><%= age_calculation(user.birthday) %></td>
         <td><%= user.sex %></td>
         <td><%= user.school_name %></td>
         <td><%= link_to "面接一覧", interviews_path( params: { id: user.id } ) %></td>
