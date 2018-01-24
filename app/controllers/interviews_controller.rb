@@ -2,7 +2,7 @@ class InterviewsController < ApplicationController
   before_action :set_currentuser
 
   def index
-    @user = User.find (params[:id])
+    @user = User.find(params[:id])
     @interviews = @user.interviews.all
   end
 
