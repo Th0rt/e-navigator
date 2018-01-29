@@ -1,4 +1,5 @@
 class InterviewsController < ApplicationController
+  require "pry"
   before_action :set_currentuser
 
   def index
@@ -33,6 +34,22 @@ class InterviewsController < ApplicationController
     @interview = Interview.find(params[:id])
     @url = interviews_url(params: { id: @interview.user_id })
     if @interview.update(interview_params)
+      NoticeMailer.sendmail_confirm(@interview.user, @url).deliver
+      redirect_to interviews_url(params: { id: @interview.user_id })
+    else
+      render :edit
+    end
+  end
+
+  def update_all
+    params.permit!
+    params[:interviews].keys.each do | interview_id |
+      @interview = Interview.find(interview_id.to_i)
+      @status = params[:interviews].fetch(interview_id)
+      @change = true if @interview.update(@status)
+    end
+    if @change == true
+      @url = interviews_url(params: { id: @interview.user_id })
       NoticeMailer.sendmail_confirm(@interview.user, @url).deliver
       redirect_to interviews_url(params: { id: @interview.user_id })
     else

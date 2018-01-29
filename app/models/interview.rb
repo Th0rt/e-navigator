@@ -8,5 +8,5 @@ class Interview < ApplicationRecord
       errors.add(:エラー, "：過去の日時は使用できません")
     end
   end
-
+  
 end

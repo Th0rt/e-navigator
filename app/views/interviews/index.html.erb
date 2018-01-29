@@ -1,35 +1,31 @@
 <h1><%= @user[:user_name] %>の面接一覧</h1>
 
-  <% if current_user.role == "ゲスト" %>
-    <%= link_to "新規作成", new_interview_path %>
-  <% end %>
-  
-<table>
-  <thead>
-    <th>日程</th>
-    <th>ステータス</th>
-  </thead>
-  <% @interviews.each do | interview | %>
-    <tr>
-      <td><%= interview.date.strftime("%Y/%m/%d %H:%M") %></td>
-      <td><%= interview.status %></td>
-      <% if current_user.role == "ゲスト" %>
-        <td><%= link_to "編集", edit_interview_path(interview) %></td>
-        <td><%= link_to "削除", interview, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %></td>
-      <% else %>
-        <td>
-          <%= form_for (interview) do |f| %>
-            <%= f.hidden_field :status, :value => "承認" %>
-            <%= f.submit "承認" %>
+<% if current_user.role == "ゲスト" %>
+  <%= link_to "新規作成", new_interview_path %>
+<% end %>
+
+<%= form_for :interviews,:url => interviews_path, :html => { :method => :patch } do |f| %>
+  <%= f.submit %>
+  <table>
+    <thead>
+      <th>日程</th>
+      <th>ステータス</th>
+    </thead>
+    <% @interviews.each do | interview | %>
+      <tr>
+        <td><%= interview.date.strftime("%Y/%m/%d %H:%M") %></td>
+        <td><%= interview.status %></td>
+        <% if current_user.role == "ゲスト" %>
+          <td><%= link_to "編集", edit_interview_path(interview) %></td>
+          <td><%= link_to "削除", interview, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %></td>
+        <% else %>
+          <%= fields_for "interviews[]", interview do |f| %>
+            <td><%= f.radio_button :status, "保留" %>保留</td>
+            <td><%= f.radio_button :status, "承認" %>承認</td>
+            <td><%= f.radio_button :status, "却下" %>却下</td>
           <% end %>
-        </td>
-        <td>
-          <%= form_for (interview) do |f| %>
-            <%= f.hidden_field :status, :value => "却下" %>
-            <%= f.submit "却下" %>
-          <% end %>
-        </td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
