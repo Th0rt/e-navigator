@@ -4,8 +4,8 @@
   <%= link_to "新規作成", new_interview_path %>
 <% end %>
 
-<%= form_for :interviews,:url => interviews_path, :html => { :method => :patch } do |f| %>
-  <%= f.submit %>
+<%= form_tag interviews_path, method: :patch do %>
+  <%= submit_tag %>
   <table>
     <thead>
       <th>日程</th>
@@ -19,10 +19,10 @@
           <td><%= link_to "編集", edit_interview_path(interview) %></td>
           <td><%= link_to "削除", interview, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %></td>
         <% else %>
-          <%= fields_for "interviews[]", interview do |f| %>
-            <td><%= f.radio_button :status, "保留" %>保留</td>
-            <td><%= f.radio_button :status, "承認" %>承認</td>
-            <td><%= f.radio_button :status, "却下" %>却下</td>
+          <%= fields_for "interviews[]", interview do |fi| %>
+            <td><%= fi.radio_button :status, "保留" %>保留</td>
+            <td><%= fi.radio_button :status, "承認" %>承認</td>
+            <td><%= fi.radio_button :status, "却下" %>却下</td>
           <% end %>
         <% end %>
       </tr>

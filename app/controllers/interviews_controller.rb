@@ -43,15 +43,13 @@ class InterviewsController < ApplicationController
 
   def update_all
     params.permit!
-    params[:interviews].keys.each do | interview_id |
-      @interview = Interview.find(interview_id.to_i)
-      @status = params[:interviews].fetch(interview_id)
-      @change = true if @interview.update(@status)
+    params[:interviews].each do |id, status|
+      @interview = Interview.find(id)
+      @update_flg = true if @interview.update(status)
     end
-    if @change == true
-      @url = interviews_url(params: { id: @interview.user_id })
+    if @update_flg == true
       NoticeMailer.sendmail_confirm(@interview.user, @url).deliver
-      redirect_to interviews_url(params: { id: @interview.user_id })
+      redirect_to interviews_url(params: { id: @interview.user_id } )
     else
       render :edit
     end
