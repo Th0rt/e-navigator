@@ -1,5 +1,4 @@
 class InterviewsController < ApplicationController
-  require "pry"
   before_action :set_currentuser
   before_action :set_recruters
 
