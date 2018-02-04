@@ -5,13 +5,12 @@ class NoticeMailer < ApplicationMailer
   #
   #   en.notice_mailer.sendmail_confirm.subject
   #
-  def sendmail_confirm(user,url)
-    @user = user
+  def sendmail_confirm(to_adress,guest,url)
+    @guest = guest
     @url = url
-    @greeting = "Hi"
 
     mail(
-      to: @user.email ,
+      to: to_adress ,
       subject: "面接情報が更新されました"
       )
   end

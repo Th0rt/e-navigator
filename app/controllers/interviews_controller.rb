@@ -21,7 +21,7 @@ class InterviewsController < ApplicationController
     @url = interviews_url(params: { id: @interview.user_id })
     if @interview.save
       @recuruters.each do |recruter|
-        NoticeMailer.sendmail_confirm(recruter, @url).deliver
+        NoticeMailer.sendmail_confirm(recruter.email,@interview.user, @url).deliver
       end
       redirect_to interviews_path(params: { id: @interview.user_id })
     else
@@ -53,7 +53,8 @@ class InterviewsController < ApplicationController
       @update_flg = true if @interview.update(status)
     end
     if @update_flg == true
-      NoticeMailer.sendmail_confirm(@interview.user, @url).deliver
+      @url = interviews_url(params: { id: @interview.user_id })
+      NoticeMailer.sendmail_confirm(@interview.user.email,@interview.user, @url).deliver
       redirect_to interviews_url(params: { id: @interview.user_id } )
     else
       render :edit
