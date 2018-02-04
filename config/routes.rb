@@ -5,4 +5,9 @@ Rails.application.routes.draw do
   patch 'interviews', to: 'interviews#update_all'
   resources :interviews
   resources :users, only: [:index, :show]
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
 end
