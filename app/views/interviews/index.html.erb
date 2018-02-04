@@ -1,6 +1,6 @@
 <h1><%= @user[:user_name] %>の面接一覧</h1>
 
-<% if current_user.role == "ゲスト" %>
+<% if current_user.role == "guest" %>
   <%= link_to "新規作成", new_interview_path %>
 <% end %>
 
@@ -15,7 +15,7 @@
       <tr>
         <td><%= interview.date.strftime("%Y/%m/%d %H:%M") %></td>
         <td><%= interview.status %></td>
-        <% if current_user.role == "ゲスト" %>
+        <% if current_user.role == "guest" %>
           <td><%= link_to "編集", edit_interview_path(interview) %></td>
           <td><%= link_to "削除", interview, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %></td>
         <% else %>

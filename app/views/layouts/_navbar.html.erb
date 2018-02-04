@@ -6,7 +6,7 @@
       <td><%= link_to "プロフィール", edit_user_registration_path %></td>
       <td>|</td>
       <td>
-        <% if current_user.role == "ゲスト" %>
+        <% if current_user.role == "guest" %>
           <%= link_to "自分の面接一覧", interviews_path( params: { id: current_user.id } ) %></td>
         <% else %>
           <td><%= link_to "ゲスト一覧", users_path %></td>

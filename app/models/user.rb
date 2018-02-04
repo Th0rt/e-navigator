@@ -4,6 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   enum sex: { man: 1, woman: 2 }
-  enum role: { ゲスト: 0, リクルーター: 1 }
+  enum role: { guest: 0, recruter: 1 }
   has_many :interviews
 end

@@ -9,7 +9,7 @@
     <th>学校名</th>
   </thead>
   <% @users.each do | user | %>
-    <% if user.role == "ゲスト" %>
+    <% if user.role == "guest" %>
       <tr>
         <td><%= user.user_name %></td>
         <td><%= user.email %></td>
