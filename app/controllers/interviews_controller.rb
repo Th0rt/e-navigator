@@ -1,6 +1,7 @@
 class InterviewsController < ApplicationController
   require "pry"
   before_action :set_currentuser
+  before_action :set_recruters
 
   def index
     @user = User.find(params[:id])
@@ -19,7 +20,9 @@ class InterviewsController < ApplicationController
     @interview = @user.interviews.build(interview_params)
     @url = interviews_url(params: { id: @interview.user_id })
     if @interview.save
-      NoticeMailer.sendmail_confirm(@user, @url).deliver
+      @recuruters.each do |recruter|
+        NoticeMailer.sendmail_confirm(recruter, @url).deliver
+      end
       redirect_to interviews_path(params: { id: @interview.user_id })
     else
       render :new
@@ -34,7 +37,9 @@ class InterviewsController < ApplicationController
     @interview = Interview.find(params[:id])
     @url = interviews_url(params: { id: @interview.user_id })
     if @interview.update(interview_params)
-      NoticeMailer.sendmail_confirm(@interview.user, @url).deliver
+      @recuruters.each do |recruter|
+        NoticeMailer.sendmail_confirm(recruter, @url).deliver
+      end
       redirect_to interviews_url(params: { id: @interview.user_id })
     else
       render :edit
@@ -59,7 +64,9 @@ class InterviewsController < ApplicationController
     @interview = Interview.find(params[:id])
     @url = interviews_url(params: { id: @interview.user_id })
     @interview.destroy
-    NoticeMailer.sendmail_confirm(@interview.user, @url).deliver
+    @recuruters.each do |recruter|
+      NoticeMailer.sendmail_confirm(recruter, @url).deliver
+    end
     redirect_to interviews_url(params: { id: @interview.user_id } )
   end
 end
@@ -68,4 +75,8 @@ private
 
 def interview_params
   params.require(:interview).permit(:date, :status)
+end
+
+def set_recruters
+  @recuruters = User.where(role: "recruter")
 end
