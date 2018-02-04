@@ -1,0 +1,20 @@
+<%= form_tag interviews_path, method: :patch do %>
+  <%= submit_tag %>
+  <table>
+    <thead>
+      <th>日程</th>
+      <th>ステータス</th>
+    </thead>
+    <% @interviews.each do | interview | %>
+      <tr>
+        <td><%= interview.date.strftime("%Y/%m/%d %H:%M") %></td>
+        <td><%= interview.status %></td>
+          <%= fields_for "interviews[]", interview do |fi| %>
+            <td><%= fi.radio_button :status, "保留" %>保留</td>
+            <td><%= fi.radio_button :status, "承認" %>承認</td>
+            <td><%= fi.radio_button :status, "却下" %>却下</td>
+          <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
