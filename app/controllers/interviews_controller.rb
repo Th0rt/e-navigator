@@ -4,7 +4,12 @@ class InterviewsController < ApplicationController
 
   def index
     @user = User.find(params[:id])
-    @interviews = @user.interviews.all
+    @interviews = @user.interviews.where(date: Time.zone.now..Float::INFINITY)
+  end
+
+  def past_interviews
+    @user = User.find(params[:id])
+    @interviews = @user.interviews.where("date > ?", Time.zone.now)
   end
 
   def show
@@ -69,7 +74,10 @@ class InterviewsController < ApplicationController
     end
     redirect_to interviews_url(params: { id: @interview.user_id } )
   end
+
 end
+
+
 
 private
 
