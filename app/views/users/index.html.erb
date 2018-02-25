@@ -1,0 +1,23 @@
+<h1>ゲスト一覧</h1>
+
+<table>
+  <thead>
+    <th>ユーザー名</th>
+    <th>Email</th>
+    <th>年齢</th>
+    <th>性別</th>
+    <th>学校名</th>
+  </thead>
+  <% @users.each do | user | %>
+    <% if user.role == "guest" %>
+      <tr>
+        <td><%= user.user_name %></td>
+        <td><%= user.email %></td>
+        <td><%= age_calculation(user.birthday) %></td>
+        <td><%= user.sex %></td>
+        <td><%= user.school_name %></td>
+        <td><%= link_to "面接一覧", interview_path(user) %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

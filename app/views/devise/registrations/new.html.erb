@@ -15,7 +15,7 @@
 
   <div class="field">
     <%= f.label :生年月日 %><br />
-    <%= f.date_select :birthday %>
+    <%= f.date_select :birthday, { :use_month_numbers => true, start_year: 1980 } %>
   </div><br />
 
   <div class="field">
@@ -26,6 +26,11 @@
   <div class="field">
     <%= f.label :学校名 %><br />
     <%= f.text_field :school_name %>
+  </div><br />
+
+  <div class="field">
+    <%= f.label :ロール %><br />
+    <%= f.select :role, User.roles.keys %>
   </div><br />
 
   <div class="field">
