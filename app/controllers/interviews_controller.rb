@@ -56,9 +56,10 @@ class InterviewsController < ApplicationController
       @update_flg = true if @interview.update(status)
     end
     if @update_flg == true
-      @url = interviews_url(params: { id: @interview.user_id })
+      @user = User.find(@interview.user_id)
+      @url = interview_url(@user)
       NoticeMailer.sendmail_confirm(@interview.user.email,@interview.user, @url).deliver
-      redirect_to interviews_url(params: { id: @interview.user_id } )
+      redirect_to interview_url(@user)
     else
       render :edit
     end

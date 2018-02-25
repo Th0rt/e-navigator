@@ -16,7 +16,7 @@
         <td><%= age_calculation(user.birthday) %></td>
         <td><%= user.sex %></td>
         <td><%= user.school_name %></td>
-        <td><%= link_to "面接一覧", interviews_path( params: { id: user.id } ) %></td>
+        <td><%= link_to "面接一覧", interview_path(user) %></td>
       </tr>
     <% end %>
   <% end %>
