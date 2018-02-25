@@ -3,8 +3,6 @@ class InterviewsController < ApplicationController
   before_action :set_recruters
 
   def index
-    @user = User.find(params[:id])
-    @interviews = @user.interviews.where(date: Time.zone.now..Float::INFINITY)
   end
 
   def past_interviews
@@ -13,7 +11,8 @@ class InterviewsController < ApplicationController
   end
 
   def show
-    @interviews = @user.interviews.all
+      @user = User.find(params[:id])
+      @interviews = @user.interviews.where(date: Time.zone.now..Float::INFINITY)
   end
 
   def new
@@ -22,12 +21,12 @@ class InterviewsController < ApplicationController
 
   def create
     @interview = @user.interviews.build(interview_params)
-    @url = interviews_url(params: { id: @interview.user_id })
+    @url = interviews_url(@interview)
     if @interview.save
       @recuruters.each do |recruter|
         NoticeMailer.sendmail_confirm(recruter.email,@interview.user, @url).deliver
       end
-      redirect_to interviews_path(params: { id: @interview.user_id })
+      redirect_to interview_path(@user)
     else
       render :new
     end

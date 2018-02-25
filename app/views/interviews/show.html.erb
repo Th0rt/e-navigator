@@ -1,14 +1,8 @@
-<h1><%= @user[:user_name] %>の過去の面接一覧</h1>
+<h1><%= @user[:user_name] %>の面接一覧</h1>
 
-<table>
-  <thead>
-    <th>日程</th>
-    <th>ステータス</th>
-  </thead>
-  <% @interviews.each do | interview | %>
-    <tr>
-      <td><%= interview.date.strftime("%Y/%m/%d %H:%M") %></td>
-      <td><%= interview.status %></td>>
-    </tr>
-  <% end %>
-</table>
+<%= link_to "過去の面接", past_interviews_path(params: { id: @user.id }) %>
+<% if current_user.role == "recruter" %>
+  <%= render 'interviews_recruter', interviews: @interviews %>
+<% else %>
+  <%= render 'interviews_guest', interviews: @interviews %>
+<% end %>

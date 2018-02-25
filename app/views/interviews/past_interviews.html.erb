@@ -1,5 +1,5 @@
 <h1><%= @user[:user_name] %>の過去の面接</h1>
-<%= link_to "一覧に戻る", interviews_path(params:{ id: @user.id }) %>
+<%= link_to "一覧に戻る", interview_path(@user) %>
 <table>
   <thead>
     <th>日程</th>

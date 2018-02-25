@@ -1,8 +1,0 @@
-<h1><%= @user[:user_name] %>の面接一覧</h1>
-
-<%= link_to "過去の面接", past_interviews_path(params: { id: @user.id }) %>
-<% if current_user.role == "recruter" %>
-  <%= render 'interviews_recruter', interviews: @interviews %>
-<% else %>
-  <%= render 'interviews_guest', interviews: @interviews %>
-<% end %>
