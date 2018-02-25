@@ -38,12 +38,12 @@ class InterviewsController < ApplicationController
 
   def update
     @interview = Interview.find(params[:id])
-    @url = interviews_url(params: { id: @interview.user_id })
+    @url = interview_url(@user)
     if @interview.update(interview_params)
       @recuruters.each do |recruter|
         NoticeMailer.sendmail_confirm(recruter.email,@interview.user, @url).deliver
       end
-      redirect_to interviews_url(params: { id: @interview.user_id })
+      redirect_to interview_url(@user)
     else
       render :edit
     end
@@ -66,12 +66,12 @@ class InterviewsController < ApplicationController
 
   def destroy
     @interview = Interview.find(params[:id])
-    @url = interviews_url(params: { id: @interview.user_id })
+    @url = interview_url(@user)
     @interview.destroy
     @recuruters.each do |recruter|
       NoticeMailer.sendmail_confirm(recruter.email,@interview.user, @url).deliver
     end
-    redirect_to interviews_url(params: { id: @interview.user_id } )
+    redirect_to interview_url(@user)
   end
 
 end
