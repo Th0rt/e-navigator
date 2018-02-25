@@ -41,7 +41,7 @@ class InterviewsController < ApplicationController
     @url = interviews_url(params: { id: @interview.user_id })
     if @interview.update(interview_params)
       @recuruters.each do |recruter|
-        NoticeMailer.sendmail_confirm(recruter, @url).deliver
+        NoticeMailer.sendmail_confirm(recruter.email,@interview.user, @url).deliver
       end
       redirect_to interviews_url(params: { id: @interview.user_id })
     else
@@ -69,7 +69,7 @@ class InterviewsController < ApplicationController
     @url = interviews_url(params: { id: @interview.user_id })
     @interview.destroy
     @recuruters.each do |recruter|
-      NoticeMailer.sendmail_confirm(recruter, @url).deliver
+      NoticeMailer.sendmail_confirm(recruter.email,@interview.user, @url).deliver
     end
     redirect_to interviews_url(params: { id: @interview.user_id } )
   end
